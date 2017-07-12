@@ -17,10 +17,12 @@
     "http-server": "^0.9.0"
   },
   "dependencies": {
+    "chart.js": "^2.0.0",
+    "moment": "^2.10.6",
     "html-imports-firefox-patch": "github:mliszcz/html-imports-firefox-patch",
-    "tangojs-connector-mtango": "^0.5.0",
-    "tangojs-core": "^0.4.0",
-    "tangojs-web-components": "^0.4.0",
+    "tangojs-connector-mtango": "file:../tangojs-connector-mtango",
+    "tangojs-core": "file:../tangojs-core",
+    "tangojs-web-components": "file:../tangojs-web-components",
     "webcomponents.js": "^0.7.21"
   },
   "private": true
