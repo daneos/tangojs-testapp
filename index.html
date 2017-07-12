@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<title>tangojs-testapp</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!--
+			Firefox ships with a broken implementation of the HTMLImports standard
+			- a polyfill has to be used. This patch allows to load the polyfill
+			when the dom.webcomponents.enabled flag is set to true.
+		-->
+		<script src="node_modules/html-imports-firefox-patch/patch.js"></script>
+		<script src="node_modules/webcomponents.js/HTMLImports.js"></script>
+
+		<!-- Dependencies required if you plan to use the tangojs-trend. -->
+		<script src="node_modules/moment/min/moment.min.js"></script>
+		<script src="node_modules/chart.js/dist/Chart.min.js"></script>
+
+		<!-- TangoJS stack. -->
+		<script src="node_modules/tangojs-core/lib/tangojs-core.js"></script>
+		<script src="node_modules/tangojs-connector-local/lib/tangojs-connector-local.js"></script>
+		<script src="node_modules/tangojs-connector-mtango/lib/tangojs-connector-mtango.js"></script>
+		<script src="node_modules/tangojs-connector-local/lib/demo-model.js"></script>
+		<script src="node_modules/tangojs-web-components/dist/tangojs-web-components.js"></script>
+
+		<!-- Include desired widgets. -->
+		<link rel="import" href="node_modules/tangojs-web-components/dist/components/tangojs-label.html">
+		<link rel="import" href="node_modules/tangojs-web-components/dist/components/tangojs-line-edit.html">
+		<link rel="import" href="node_modules/tangojs-web-components/dist/components/tangojs-command-button.html">
+		<link rel="import" href="node_modules/tangojs-web-components/dist/components/tangojs-state-led.html">
+		<link rel="import" href="node_modules/tangojs-web-components/dist/components/tangojs-trend.html">
+		<link rel="import" href="node_modules/tangojs-web-components/dist/components/tangojs-form.html">
+		<link rel="import" href="node_modules/tangojs-web-components/dist/components/tangojs-chart.html">
+		<link rel="import" href="node_modules/tangojs-web-components/dist/components/tangojs-device-tree.html">
+
+		<script type="text/javascript">
+			(
+				function (window)
+				{
+					'use strict'
+					// example configuration for mTango rc3 backend
+					const conn = new window.tangojs.connector.mtango.MTangoConnector(
+						'http://localhost:5992/tango/rest/rc3',
+						'vxi-sardana-centos', // hostname
+						'10000', // port
+						'tango', // username
+						'tango'  // password
+					)
+
+					// Bind desired connector to TangoJS API.
+					window.tangojs.core.setConnector(conn)
+				}
+			)(window)
+		</script>
+
+		<style>
+			div.container { border: 2px solid black; width: 500px;  margin-bottom: 15px; }
+			div.container p { font-weight: bold; font-style: italic; text-align: center; border-bottom: 3px solid red; }
+			tangojs-trend, tangojs-chart { display: block; height: 400px; }
+		</style>
+
+	</head>
+	<body>
+		<div class="container">
+			<p>tangojs-label</p>
+			<tangojs-label
+				model="sys/tg_test/1/double_scalar"
+				poll-period="1000"
+				show-name
+				show-unit
+				show-quality>
+			</tangojs-label>
+		</div>
+
+		<div class="container">
+			<p>tangojs-line-edit</p>
+			<tangojs-line-edit
+				model="sys/tg_test/1/double_scalar_w"
+				poll-period="1000"
+				show-name
+				show-unit
+				show-quality>
+			</tangojs-line-edit>
+		</div>
+
+		<div class="container">
+			<p>tangojs-command-button</p>
+			<tangojs-command-button
+				model="sys/tg_test/1/SwitchStates">
+					Switch state
+			</tangojs-command-button>
+		</div>
+
+		<div class="container">
+			<p>tangojs-state-led</p>
+			<tangojs-state-led
+				model="sys/tg_test/1"
+				poll-period="1000"
+				show-name
+				show-led>
+			</tangojs-state-led>
+		</div>
+
+		<div class="container">
+			<p>tangojs-trend</p>
+			<tangojs-trend
+				model="sys/tg_test/1/long_scalar,sys/tg_test/1/double_scalar"
+				poll-period="1000"
+				data-limit="100">
+			</tangojs-trend>
+		</div>
+
+		<div class="container">
+			<p>tangojs-chart</p>
+			<tangojs-chart
+				model="sys/tg_test/1/long_spectrum,sys/tg_test/1/double_spectrum"
+				poll-period="1000">
+			</tangojs-chart>
+		</div>
+
+		<div class="container">
+			<p>tangojs-form</p>
+			<tangojs-form
+				model="sys/tg_test/1/long_scalar,sys/tg_test/1/double_scalar"
+				poll-period="1000">
+			</tangojs-form>
+		</div>
+
+		<div class="container">
+			<p>tangojs-device-tree</p>
+			<tangojs-device-tree>
+			</tangojs-device-tree>
+		</div>
+	</body>
+</html>
