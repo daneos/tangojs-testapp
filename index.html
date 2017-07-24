@@ -34,6 +34,8 @@
 		<link rel="import" href="node_modules/tangojs-web-components/dist/components/tangojs-form.html">
 		<link rel="import" href="node_modules/tangojs-web-components/dist/components/tangojs-chart.html">
 		<link rel="import" href="node_modules/tangojs-web-components/dist/components/tangojs-device-tree.html">
+		<link rel="import" href="node_modules/tangojs-web-components/dist/components/tangojs-image.html">
+		<link rel="import" href="node_modules/tangojs-web-components/dist/components/tangojs-group.html">
 
 		<script type="text/javascript">
 			(
@@ -98,8 +100,9 @@
 			<tangojs-state-led
 				model="sys/tg_test/1"
 				poll-period="1000"
+				show-led
 				show-name
-				show-led>
+				show-value>
 			</tangojs-state-led>
 		</div>
 
@@ -133,5 +136,21 @@
 			<tangojs-device-tree>
 			</tangojs-device-tree>
 		</div>
+
+		<div class="container">
+			<p>tangojs-group</p>
+			<tangojs-group
+				model="sys/tg_test/1/long_scalar,sys/tg_test/1/double_scalar"
+				name="Test group">
+			</tangojs-group>
+		</div>
+
+		<!-- <div class="container">
+			<p>tangojs-image</p>
+			<tangojs-image
+				model="sys/tg_test/1/double_image_ro"
+				poll-period="1000">
+			</tangojs-image>
+		</div> -->
 	</body>
 </html>
